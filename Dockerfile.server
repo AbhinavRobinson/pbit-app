@@ -1,0 +1,19 @@
+FROM node:16 As development
+
+WORKDIR /usr/src/app
+
+COPY ./server/package.json ./
+
+COPY ./server/pnpm-lock.yaml ./
+
+ADD server .
+
+COPY ./.server.env ./.env
+
+COPY ./entrypoint.sh .
+
+RUN npm i -g pnpm
+
+RUN pnpm i
+
+CMD ["yarn", "start:dev"]

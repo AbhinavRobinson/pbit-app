@@ -1,0 +1,17 @@
+FROM node:16 As development
+
+WORKDIR /usr/src/app
+
+COPY ./web/package.json ./
+
+COPY ./web/pnpm-lock.yaml ./
+
+ADD ./web .
+
+COPY ./entrypoint.sh .
+
+RUN npm i -g pnpm
+
+RUN pnpm i
+
+CMD ["yarn","dev"]
