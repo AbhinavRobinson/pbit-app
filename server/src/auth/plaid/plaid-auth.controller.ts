@@ -42,6 +42,7 @@ export class PlaidAuthController {
   ): Promise<Omit<User, 'password'>> {
     const result: User = await this.plaidAuthService.create(createUserDto);
     res.cookie('jwt', this.jwtAuthService.login(result));
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...rest } = result;
     return rest;
   }
