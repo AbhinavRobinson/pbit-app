@@ -9,7 +9,7 @@ export class GoogleOauthController {
 
   @Get()
   @UseGuards(GoogleOauthGuard)
-  async googleAuth(@Req() _req) {
+  async googleAuth() {
     // Guard redirects
   }
 

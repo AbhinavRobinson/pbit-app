@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, Post, UseGuards } from '@nestjs/common';
+import { Controller, Get, Inject, Post, Req, UseGuards } from '@nestjs/common';
 import { User } from './schemas/user.schema';
 import { UsersService } from './users.service';
 import { Request } from 'express';
@@ -19,7 +19,7 @@ export class UsersController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  async whoAmI(req: Request): Promise<User> {
+  async whoAmI(@Req() req: Request): Promise<User> {
     const { jwt } = req.headers;
     const id = this.jwtAuthService.decodeAndExtractId(jwt as string);
     return this.usersService.findOne({ id: id.toString() });

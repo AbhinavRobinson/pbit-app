@@ -3,12 +3,14 @@ import { Profile, Strategy } from 'passport-google-oauth20';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { UsersService } from 'src/users/users.service';
+import { GoogleOauthService } from './google-oauth.service';
 
 @Injectable()
 export class GoogleOauthStrategy extends PassportStrategy(Strategy, 'google') {
   constructor(
     configService: ConfigService,
     private readonly usersService: UsersService,
+    private readonly googleOauthService: GoogleOauthService,
   ) {
     super({
       clientID: configService.get<string>('google.oauth.id'),
@@ -30,7 +32,7 @@ export class GoogleOauthStrategy extends PassportStrategy(Strategy, 'google') {
       providerId: id,
     });
     if (!user) {
-      user = await this.usersService.create({
+      user = await this.googleOauthService.create({
         provider: 'google',
         providerId: id,
         name: name.givenName,
