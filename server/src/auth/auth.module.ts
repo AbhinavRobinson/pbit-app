@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common';
-// import { UsersModule } from '../users/users.module';
+import { UsersModule } from '../users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { GoogleOauthModule } from './google/google-oauth.module';
 import { JwtAuthModule } from './jwt/jwt-auth.module';
-import { AuthController } from './auth.controller';
+import { PlaidAuthModule } from './plaid/plaid-auth.module';
 
 @Module({
-  controllers: [AuthController],
   imports: [
-    // UsersModule,
+    UsersModule,
     PassportModule,
     GoogleOauthModule,
     JwtAuthModule,
+    PlaidAuthModule,
   ],
 })
 export class AuthModule {}
