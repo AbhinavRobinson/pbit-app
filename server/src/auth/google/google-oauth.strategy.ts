@@ -11,9 +11,9 @@ export class GoogleOauthStrategy extends PassportStrategy(Strategy, 'google') {
   ) {
     super({
       // Put config in `.env`
-      clientID: configService.get<string>('OAUTH_GOOGLE_ID'),
-      clientSecret: configService.get<string>('OAUTH_GOOGLE_SECRET'),
-      callbackURL: configService.get<string>('OAUTH_GOOGLE_REDIRECT_URL'),
+      clientID: configService.get<string>('google.oauth.id'),
+      clientSecret: configService.get<string>('google.oauth.secret'),
+      callbackURL: configService.get<string>('google.oauth.redirecturl'),
       scope: ['email', 'profile'],
     });
   }

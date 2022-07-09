@@ -9,9 +9,9 @@ import { JwtAuthStrategy } from './jwt-auth.strategy';
     JwtModule.registerAsync({
       useFactory: async (configService: ConfigService) => {
         return {
-          secret: configService.get<string>('JWT_SECRET'),
+          secret: configService.get<string>('jwt.secret'),
           signOptions: {
-            expiresIn: configService.get<string>('JWT_EXPIRES_IN'),
+            expiresIn: configService.get<string>('jwt.expiresin'),
           },
         };
       },
