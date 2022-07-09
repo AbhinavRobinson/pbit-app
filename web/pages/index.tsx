@@ -13,8 +13,13 @@ const Home: NextPage = () => {
 		if (connectedAddress && chainId && !incorrectChainId) {
 			// do stuff here - example code. address not set.
 			const run = async () => {
-				const ERC721 = await getContract<ERC721>('ERC721')
+				try {
+					await getContract<ERC721>('ERC721')
+				} catch (err) {
+					console.error(err)
+				}
 			}
+			run()
 		}
 	}, [connectedAddress, chainId, incorrectChainId])
 

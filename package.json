@@ -1,0 +1,14 @@
+{
+  "name": "pbit-app",
+  "version": "1.0.0",
+  "description": "Recommended: PNPM (dev), Docker, Docker Compose",
+  "scripts": {
+    "dev:up": "docker-compose up",
+    "dev:down": "docker-compose down --remove-orphans",
+    "prod:up": "docker-compose -f docker-compose.build.yml up -d --rebuild",
+    "prod:down": "docker-compose down --remove-orphans",
+    "rebuild": "docker-compose build --no-cache"
+  },
+  "keywords": [],
+  "license": "ISC"
+}
