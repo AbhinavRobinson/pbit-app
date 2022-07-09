@@ -2,15 +2,15 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Profile, Strategy } from 'passport-google-oauth20';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class GoogleOauthStrategy extends PassportStrategy(Strategy, 'google') {
   constructor(
     configService: ConfigService,
-    // private readonly usersService: UsersService,
+    private readonly usersService: UsersService,
   ) {
     super({
-      // Put config in `.env`
       clientID: configService.get<string>('google.oauth.id'),
       clientSecret: configService.get<string>('google.oauth.secret'),
       callbackURL: configService.get<string>('google.oauth.redirecturl'),
@@ -25,12 +25,19 @@ export class GoogleOauthStrategy extends PassportStrategy(Strategy, 'google') {
   ) {
     const { id, name, emails } = profile;
 
-    // Here a custom User object is returned. In the the repo I'm using a UsersService with repository pattern, learn more here: https://docs.nestjs.com/techniques/database
-    return {
+    let user = await this.usersService.findOne({
       provider: 'google',
       providerId: id,
-      name: name.givenName,
-      username: emails[0].value,
-    };
+    });
+    if (!user) {
+      user = await this.usersService.create({
+        provider: 'google',
+        providerId: id,
+        name: name.givenName,
+        username: emails[0].value,
+      });
+    }
+
+    return user;
   }
 }

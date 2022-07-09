@@ -8,6 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import configuration from '../config/configuration';
 import { AuthModule } from './auth/auth.module';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
     ConfigModule.forRoot({ load: [configuration], isGlobal: true }),
     MongooseModule.forRoot(configuration().database.host as string),
     AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
