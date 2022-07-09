@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "formulahendry.docker-explorer",
+    "ms-azuretools.vscode-docker",
+    "aaron-bond.better-comments",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "syler.sass-indented",
+    "bradlc.vscode-tailwindcss"
+  ]
+}
