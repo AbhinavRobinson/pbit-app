@@ -2,8 +2,8 @@ import { Controller, Get, Inject, Post, UseGuards } from '@nestjs/common';
 import { User } from './schemas/user.schema';
 import { UsersService } from './users.service';
 import { Request } from 'express';
-import { GoogleOauthGuard } from 'src/auth/google/google-oauth.guard';
 import { JwtAuthService } from 'src/auth/jwt/jwt-auth.service';
+import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -18,7 +18,7 @@ export class UsersController {
   }
 
   @Post()
-  @UseGuards(GoogleOauthGuard)
+  @UseGuards(JwtAuthGuard)
   async whoAmI(req: Request): Promise<User> {
     const { jwt } = req.headers;
     const id = this.jwtAuthService.decodeAndExtractId(jwt as string);
