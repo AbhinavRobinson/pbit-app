@@ -1,17 +1,9 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Req,
-  Res,
-  UseGuards,
-} from '@nestjs/common';
-import { Request, Response } from 'express';
-import { User } from 'src/users/schemas/user.schema';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Request } from 'express';
 import { JwtAuthGuard } from '../jwt/jwt-auth.guard';
 import { JwtAuthService } from '../jwt/jwt-auth.service';
 import { CreateUserDto } from './dtos/create-user-dto';
+import { LoginUserDto } from './dtos/login-user.dto';
 import { PlaidAuthGuard } from './plaid-auth.guard';
 import { PlaidAuthService } from './plaid-auth.service';
 
@@ -24,9 +16,8 @@ export class PlaidAuthController {
 
   @Post('login')
   @UseGuards(PlaidAuthGuard)
-  async login(@Req() req: Request, @Res() res: Response) {
-    res.cookie('jwt', this.jwtAuthService.login(req.user));
-    return req.user;
+  async login(@Body() user: LoginUserDto) {
+    return this.jwtAuthService.login(user);
   }
 
   @Get('profile')
@@ -38,12 +29,8 @@ export class PlaidAuthController {
   @Post('register')
   public async register(
     @Body() createUserDto: CreateUserDto,
-    @Res() res: Response,
-  ): Promise<Omit<User, 'password'>> {
-    const result: User = await this.plaidAuthService.create(createUserDto);
-    res.cookie('jwt', this.jwtAuthService.login(result));
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...rest } = result;
-    return rest;
+  ): Promise<{ accessToken: string }> {
+    await this.plaidAuthService.create(createUserDto);
+    return this.jwtAuthService.login(createUserDto);
   }
 }

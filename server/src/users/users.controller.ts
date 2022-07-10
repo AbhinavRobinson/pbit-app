@@ -12,11 +12,6 @@ export class UsersController {
     @Inject(JwtAuthService) private jwtAuthService: JwtAuthService,
   ) {}
 
-  @Get()
-  async users(): Promise<User[]> {
-    return this.usersService.findAll();
-  }
-
   @Post()
   @UseGuards(JwtAuthGuard)
   async whoAmI(@Req() req: Request): Promise<User> {
