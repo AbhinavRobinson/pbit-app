@@ -12,10 +12,10 @@ export class UsersController {
     @Inject(JwtAuthService) private jwtAuthService: JwtAuthService,
   ) {}
 
-  @Post()
+  @Post('whoami')
   @UseGuards(JwtAuthGuard)
   async whoAmI(@Req() req: Request): Promise<User> {
-    const { jwt } = req.headers;
+    const { jwt } = req.cookies;
     const id = this.jwtAuthService.decodeAndExtractId(jwt as string);
     return this.usersService.findOne({ id: id.toString() });
   }
