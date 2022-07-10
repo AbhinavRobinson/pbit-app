@@ -1,0 +1,19 @@
+lockfileVersion: 5.4
+
+specifiers:
+  '@openzeppelin/contracts': ^4.7.0
+  '@openzeppelin/contracts-upgradeable': ^4.7.0
+
+dependencies:
+  '@openzeppelin/contracts': 4.7.0
+  '@openzeppelin/contracts-upgradeable': 4.7.0
+
+packages:
+
+  /@openzeppelin/contracts-upgradeable/4.7.0:
+    resolution: {integrity: sha512-wO3PyoAaAV/rA77cK8H4c3SbO98QylTjfiFxyvURUZKTFLV180rnAvna1x7/Nxvt0Gqv+jt1sXKC7ygxsq8iCw==}
+    dev: false
+
+  /@openzeppelin/contracts/4.7.0:
+    resolution: {integrity: sha512-52Qb+A1DdOss8QvJrijYYPSf32GUg2pGaG/yCxtaA3cu4jduouTdg4XZSMLW9op54m1jH7J8hoajhHKOPsoJFw==}
+    dev: false

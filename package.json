@@ -10,5 +10,9 @@
     "rebuild": "docker-compose build --no-cache"
   },
   "keywords": [],
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.7.0",
+    "@openzeppelin/contracts-upgradeable": "^4.7.0"
+  }
 }
