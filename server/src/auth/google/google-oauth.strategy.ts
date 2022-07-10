@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { UsersService } from 'src/users/users.service';
 import { GoogleOauthService } from './google-oauth.service';
+import { User } from 'src/users/schemas/user.schema';
 
 @Injectable()
 export class GoogleOauthStrategy extends PassportStrategy(Strategy, 'google') {
@@ -24,7 +25,7 @@ export class GoogleOauthStrategy extends PassportStrategy(Strategy, 'google') {
     _accessToken: string,
     _refreshToken: string,
     profile: Profile,
-  ) {
+  ): Promise<User> {
     const { id, name, emails } = profile;
 
     let user = await this.usersService.findOne({

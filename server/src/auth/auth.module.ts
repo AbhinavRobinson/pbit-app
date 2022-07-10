@@ -3,7 +3,7 @@ import { UsersModule } from '../users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { GoogleOauthModule } from './google/google-oauth.module';
 import { JwtAuthModule } from './jwt/jwt-auth.module';
-import { PlaidAuthModule } from './plaid/plaid-auth.module';
+import { LocalAuthModule } from './local/local-auth.module';
 
 @Module({
   imports: [
@@ -11,7 +11,7 @@ import { PlaidAuthModule } from './plaid/plaid-auth.module';
     PassportModule,
     GoogleOauthModule,
     JwtAuthModule,
-    PlaidAuthModule,
+    LocalAuthModule,
   ],
 })
 export class AuthModule {}

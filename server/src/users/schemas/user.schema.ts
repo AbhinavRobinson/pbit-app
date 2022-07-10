@@ -12,12 +12,13 @@ export class User {
   @Prop({ required: true })
   providerId: string;
 
-  @Prop()
-  username: string;
-
   @Prop({ required: true })
   name: string;
 
+  @Prop()
+  username: string;
+
+  // Only used for local strategy
   @Prop()
   password: string;
 }

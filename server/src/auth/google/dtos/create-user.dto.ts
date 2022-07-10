@@ -1,6 +1,6 @@
 import { Provider } from '../../../users/schemas/user.types';
 
-export class CreateUserDto {
+export class CreateGoogleUserDto {
   provider: Provider;
   providerId: string;
   username: string;

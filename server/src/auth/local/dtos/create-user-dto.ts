@@ -1,7 +1,8 @@
 import { Provider } from 'src/users/schemas/user.types';
 
-export class LoginUserDto {
+export class CreateLocalUserDto {
   provider: Provider;
   username: string;
+  name: string;
   password: string;
 }
