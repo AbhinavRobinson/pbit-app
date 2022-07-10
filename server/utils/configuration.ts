@@ -1,5 +1,6 @@
 export default () => ({
   port: parseInt(process.env.PORT, 10) || 3001,
+  saltOrRounds: process.env.SALT || 10,
   database: {
     host: process.env.MONGO_URL,
   },
