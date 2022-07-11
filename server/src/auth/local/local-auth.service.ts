@@ -3,12 +3,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from 'src/users/schemas/user.schema';
 import { UsersService } from 'src/users/users.service';
-import { CreateUserDto } from './dtos/create-user-dto';
+import { CreateLocalUserDto } from './dtos/create-user-dto';
 import * as bcrypt from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
+import { randomUUID } from 'crypto';
 
 @Injectable()
-export class PlaidAuthService {
+export class LocalAuthService {
   private saltOrRounds: string | number;
 
   constructor(
@@ -19,7 +20,10 @@ export class PlaidAuthService {
     this.saltOrRounds = this.configService.get<string>('saltOrRounds');
   }
 
-  async validateUser(username: string, password: string): Promise<any> {
+  async validateUser(
+    username: string,
+    password: string,
+  ): Promise<Omit<User, 'password'>> {
     const user = await this.usersService.findOne({ username });
     if (user && bcrypt.compareSync(password, user.password)) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -29,7 +33,7 @@ export class PlaidAuthService {
     return null;
   }
 
-  async create(userDto: CreateUserDto): Promise<User> {
+  async create(userDto: CreateLocalUserDto): Promise<User | null> {
     const { username } = userDto;
     // check if the user exists in the db
     const userInDb = await this.usersService.findOne({
@@ -37,7 +41,10 @@ export class PlaidAuthService {
     });
     if (!userInDb) {
       userDto.password = await bcrypt.hash(userDto.password, this.saltOrRounds);
-      const createdUser = new this.userModel(userDto);
+      const createdUser = new this.userModel({
+        ...userDto,
+        providerId: randomUUID(),
+      });
       return createdUser.save();
     }
     return null;

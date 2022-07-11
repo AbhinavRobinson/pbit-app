@@ -4,9 +4,9 @@ import { PassportModule } from '@nestjs/passport';
 import { User, UserSchema } from 'src/users/schemas/user.schema';
 import { UsersModule } from 'src/users/users.module';
 import { JwtAuthModule } from '../jwt/jwt-auth.module';
-import { PlaidAuthController } from './plaid-auth.controller';
-import { PlaidAuthService } from './plaid-auth.service';
-import { PlaidAuthStrategy } from './plaid-auth.strategy';
+import { LocalAuthController } from './local-auth.controller';
+import { LocalAuthService } from './local-auth.service';
+import { LocalAuthStrategy } from './local-auth.strategy';
 
 @Module({
   imports: [
@@ -15,7 +15,7 @@ import { PlaidAuthStrategy } from './plaid-auth.strategy';
     JwtAuthModule,
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
-  controllers: [PlaidAuthController],
-  providers: [PlaidAuthService, PlaidAuthStrategy],
+  controllers: [LocalAuthController],
+  providers: [LocalAuthService, LocalAuthStrategy],
 })
-export class PlaidAuthModule {}
+export class LocalAuthModule {}
