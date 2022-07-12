@@ -11,13 +11,25 @@ import type { GaxiosResponse } from 'gaxios';
 export class MailService {
   private SCOPES: string[];
   private TOKEN_PATH: string;
+  private CRED_FILE: string;
+  private TOKEN_FILE: string;
+  private MESSAGE_TYPE: MimeText.TextFormat;
+  private ACCESS_TYPE: string;
+  private GOOGLE_VERSION: 'v1';
+  private REL_PATH: string;
 
   constructor() {
+    this.REL_PATH = '..';
     this.SCOPES = [
       'https://mail.google.com',
       'https://www.googleapis.com/auth/drive',
     ];
-    this.TOKEN_PATH = join(join(__dirname, '..'), 'token.json');
+    this.TOKEN_FILE = 'token.json';
+    this.TOKEN_PATH = join(join(__dirname, this.REL_PATH), this.TOKEN_FILE);
+    this.CRED_FILE = 'credentials.json';
+    this.MESSAGE_TYPE = 'text/plain';
+    this.ACCESS_TYPE = 'offline';
+    this.GOOGLE_VERSION = 'v1';
   }
 
   private make_mime(
@@ -30,8 +42,7 @@ export class MailService {
     message.setSender(from);
     message.setRecipient(to);
     message.setSubject(subject);
-    message.setMessage('text/plain', msg);
-
+    message.setMessage(this.MESSAGE_TYPE, msg);
     return message.asEncoded();
   }
 
@@ -44,7 +55,7 @@ export class MailService {
   private getNewToken(oAuth2Client: OAuth2Client): Promise<OAuth2Client> {
     return new Promise<OAuth2Client>((resolve, reject) => {
       const authUrl = oAuth2Client.generateAuthUrl({
-        access_type: 'offline',
+        access_type: this.ACCESS_TYPE,
         scope: this.SCOPES,
       });
       console.log('Authorize this app by visiting this url:', authUrl);
@@ -108,22 +119,22 @@ export class MailService {
   private async getOAuth(): Promise<OAuth2Client> {
     try {
       const content = await fs.promises.readFile(
-        join(join(__dirname, '..'), 'credentials.json'),
+        join(join(__dirname, this.REL_PATH), this.CRED_FILE),
       );
       const OAuth = await this.authorize(JSON.parse(content.toString()));
       return OAuth;
     } catch (err) {
-      console.log(`Error reading credentials.json, ${err}`);
+      console.log(`Error reading ${this.CRED_FILE}, ${err}`);
       throw new Error('Erroe free');
     }
   }
 
-  async listLabels(): Promise<void> {
+  async listLabels(userId: string): Promise<void> {
     const auth = await this.getOAuth();
-    const gmail = google.gmail({ version: 'v1', auth });
+    const gmail = google.gmail({ version: this.GOOGLE_VERSION, auth });
     gmail.users.labels.list(
       {
-        userId: 'me',
+        userId,
       },
       (err, res: any) => {
         if (err) return console.log('The API returned an error: ' + err);
@@ -141,6 +152,7 @@ export class MailService {
   }
 
   async send_mail(
+    userId: string,
     from_mail: string,
     to_email: string,
     subject: string,
@@ -150,11 +162,9 @@ export class MailService {
     try {
       console.log({ to_email, from_mail, subject, mail_data });
       let raw = this.make_mime(to_email, from_mail, subject, mail_data);
-
-      const gmail = google.gmail({ version: 'v1', auth });
-
+      const gmail = google.gmail({ version: this.GOOGLE_VERSION, auth });
       return await gmail.users.messages.send({
-        userId: 'me',
+        userId,
         requestBody: { raw: raw },
       });
     } catch (err) {
