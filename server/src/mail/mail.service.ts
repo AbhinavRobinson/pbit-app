@@ -20,7 +20,12 @@ export class MailService {
     this.TOKEN_PATH = join(join(__dirname, '..'), 'token.json');
   }
 
-  private make_mime(to: string, from: string, subject: string, msg: string) {
+  private make_mime(
+    to: string,
+    from: string,
+    subject: string,
+    msg: string,
+  ): string {
     const message = MimeText.createMimeMessage();
     message.setSender(from);
     message.setRecipient(to);
@@ -36,7 +41,7 @@ export class MailService {
    * @param {google.auth.OAuth2} oAuth2Client The OAuth2 client to get token for.
    * @param {getEventsCallback} callback The callback for the authorized client.
    */
-  private getNewToken(oAuth2Client: OAuth2Client) {
+  private getNewToken(oAuth2Client: OAuth2Client): Promise<OAuth2Client> {
     return new Promise<OAuth2Client>((resolve, reject) => {
       const authUrl = oAuth2Client.generateAuthUrl({
         access_type: 'offline',
@@ -113,7 +118,7 @@ export class MailService {
     }
   }
 
-  async listLabels() {
+  async listLabels(): Promise<void> {
     const auth = await this.getOAuth();
     const gmail = google.gmail({ version: 'v1', auth });
     gmail.users.labels.list(
