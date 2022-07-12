@@ -15,8 +15,8 @@ export class MailController {
     return this.mailService.send_mail(params);
   }
 
-  @Get()
-  async listLabels(@Param() userId: string) {
+  @Get('/:userId')
+  async listLabels(@Param('userId') userId: string) {
     this.mailService.listLabels(userId);
     return;
   }
