@@ -1,3 +1,4 @@
+import { MailModule } from './mail/mail.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -12,6 +13,7 @@ import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
+    MailModule,
     ThrottlerModule.forRoot({
       ttl: 60,
       limit: 10,
