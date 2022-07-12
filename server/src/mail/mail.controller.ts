@@ -1,6 +1,23 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
+import type { GaxiosResponse } from 'gaxios';
+import { gmail_v1 } from 'googleapis';
+import { SendMailDTO } from './dtos/send-mail.dto';
+import { MailService } from './mail.service';
 
-@Controller('')
+@Controller('mail')
 export class MailController {
-  constructor() {}
+  constructor(private mailService: MailService) {}
+
+  @Post()
+  async postMail(
+    @Body() params: SendMailDTO,
+  ): Promise<GaxiosResponse<gmail_v1.Schema$Message> | 500> {
+    return this.mailService.send_mail(params);
+  }
+
+  @Get()
+  async listLabels(@Param() userId: string) {
+    this.mailService.listLabels(userId);
+    return;
+  }
 }

@@ -6,6 +6,7 @@ import MimeText from 'mimetext';
 import { gmail_v1, google } from 'googleapis';
 import { OAuth2Client } from 'google-auth-library';
 import type { GaxiosResponse } from 'gaxios';
+import { SendMailDTO } from './dtos/send-mail.dto';
 
 @Injectable()
 export class MailService {
@@ -152,13 +153,10 @@ export class MailService {
   }
 
   async send_mail(
-    userId: string,
-    from_mail: string,
-    to_email: string,
-    subject: string,
-    mail_data: string,
+    params: SendMailDTO,
   ): Promise<GaxiosResponse<gmail_v1.Schema$Message> | 500> {
     const auth = await this.getOAuth();
+    const { userId, from_mail, to_email, subject, mail_data } = params;
     try {
       console.log({ to_email, from_mail, subject, mail_data });
       let raw = this.make_mime(to_email, from_mail, subject, mail_data);
