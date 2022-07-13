@@ -19,7 +19,7 @@ export class User {
   @Prop({ required: true })
   username: string;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({ required: false, default: null })
   @Prop()
   name: string;
 
@@ -27,6 +27,15 @@ export class User {
   @ApiProperty({ description: 'Required for local strategy' })
   @Prop()
   password: string;
+
+  // Authorization
+  @ApiProperty({ required: false, default: false })
+  @Prop({ required: false, default: false })
+  admin: boolean;
+
+  @ApiProperty({ required: false, default: null })
+  @Prop({ required: false, default: null })
+  creator: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

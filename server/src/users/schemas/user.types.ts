@@ -15,8 +15,12 @@ export class User {
   updated_at: Date;
   @ApiProperty({ required: false, description: 'Auto generated if null' })
   providerId?: string;
-  @ApiProperty({ required: false })
+  @ApiProperty({ required: false, default: null })
   name?: string;
   @ApiProperty({ description: 'Required for local strategy' })
   password?: string;
+  @ApiProperty({ required: false, default: false })
+  admin?: boolean;
+  @ApiProperty({ required: false, default: null })
+  creator?: string;
 }
