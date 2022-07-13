@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Role } from 'src/auth/roles/roles.enum';
 
 export type Provider = 'google' | 'plaid';
 
@@ -19,8 +20,6 @@ export class User {
   name?: string;
   @ApiProperty({ description: 'Required for local strategy' })
   password?: string;
-  @ApiProperty({ required: false, default: false })
-  admin?: boolean;
-  @ApiProperty({ required: false, default: null })
-  creator?: string;
+  @ApiProperty({ required: false, default: [Role.User] })
+  role?: Role[];
 }

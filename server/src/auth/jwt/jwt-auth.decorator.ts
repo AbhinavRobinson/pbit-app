@@ -1,8 +1,8 @@
-import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import { createParamDecorator, ExecutionContext, Inject } from '@nestjs/common';
 import { JwtPayload } from './jwt-auth.strategy';
 
 export const GetAuthId = createParamDecorator(
-  (data: unknown, ctx: ExecutionContext) => {
+  (_data: unknown, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();
     const base64Payload = request.cookies.jwt.split(' ')[1];
     const payloadBuffer = Buffer.from(base64Payload, 'base64');
