@@ -2,3 +2,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export { ERC721__factory } from "./ERC721__factory";
+export { Executor__factory } from "./Executor__factory";
+export { Invoice__factory } from "./Invoice__factory";
