@@ -4,13 +4,16 @@ import { User } from 'src/users/schemas/user.schema';
 import { Chain } from './chain.schema';
 import { Execution } from './excution.schema';
 
+const DAY = 60 * 60 * 24;
+
 export enum Frequency {
-  Single,
-  Daily,
-  Weekly,
-  Monthly,
-  Quarterly,
-  Yearly,
+  Single = 0,
+  Daily = DAY,
+  Weekly = DAY * 7,
+  Monthly = DAY * 30,
+  Quarterly = DAY * 90,
+  HalfYearly = DAY * 180,
+  Yearly = DAY * 360, // consistant with other times.
 }
 
 @Schema({
@@ -67,3 +70,5 @@ export class Invoice {
   @Prop({ required: true, default: 1 })
   numberOfRetries: number;
 }
+
+export type InvoiceDocument = Invoice & mongoose.Document;

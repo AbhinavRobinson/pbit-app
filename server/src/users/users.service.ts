@@ -8,20 +8,20 @@ export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
   async findOne(
-    params: FilterQuery<UserDocument>,
+    filter: FilterQuery<UserDocument>,
   ): Promise<UserWithoutPassword> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...rest } = await this.userModel.findOne(params).exec();
+    const { password, ...rest } = await this.userModel.findOne(filter).exec();
     return rest;
   }
 
   async findOneAndUpdate(
-    id: FilterQuery<UserDocument>,
+    filter: FilterQuery<UserDocument>,
     params: UpdateQuery<UserDocument>,
   ): Promise<UserWithoutPassword> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...rest } = await this.userModel
-      .findOneAndUpdate(id, params)
+      .findOneAndUpdate(filter, params)
       .exec();
     return rest;
   }
