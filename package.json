@@ -5,7 +5,7 @@
   "scripts": {
     "dev:up": "docker-compose up",
     "dev:down": "docker-compose down --remove-orphans",
-    "prod:up": "docker-compose -f docker-compose.build.yml up -d --rebuild",
+    "prod:up": "`docker`-compose -f docker-compose.build.yml up -d --rebuild",
     "prod:down": "docker-compose down --remove-orphans",
     "rebuild": "docker-compose build --no-cache"
   },
