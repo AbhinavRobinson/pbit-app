@@ -5,6 +5,7 @@ import { Role } from 'src/auth/roles/roles.enum';
 import { Provider } from './user.types';
 
 export type UserDocument = User & Document;
+export type UserWithoutPassword = Omit<User, 'password'>;
 
 @Schema()
 export class User {

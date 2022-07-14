@@ -21,7 +21,7 @@ export class LocalAuthController {
 
   @Post('login')
   @UseGuards(LocalAuthGuard)
-  async login(@Body() user: LoginLocalUserDto) {
+  async login(@Body() user: LoginLocalUserDto): Promise<Record<string, any>> {
     return this.jwtAuthService.signedAccessToken(user);
   }
 

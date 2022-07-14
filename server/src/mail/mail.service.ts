@@ -113,7 +113,7 @@ export class MailService {
     } catch (err) {
       if (err) return this.getNewToken(oAuth2Client);
     }
-    oAuth2Client.setCredentials(JSON.parse(token!.toString()));
+    oAuth2Client.setCredentials(JSON.parse(token.toString()));
     return oAuth2Client;
   }
 
@@ -159,7 +159,7 @@ export class MailService {
     const { userId, from_mail, to_email, subject, mail_data } = params;
     try {
       console.log({ to_email, from_mail, subject, mail_data });
-      let raw = this.make_mime(to_email, from_mail, subject, mail_data);
+      const raw = this.make_mime(to_email, from_mail, subject, mail_data);
       const gmail = google.gmail({ version: this.GOOGLE_VERSION, auth });
       return await gmail.users.messages.send({
         userId,

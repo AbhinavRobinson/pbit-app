@@ -1,4 +1,4 @@
-import { createParamDecorator, ExecutionContext, Inject } from '@nestjs/common';
+import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { JwtPayload } from './jwt-auth.strategy';
 
 export const GetAuthId = createParamDecorator(

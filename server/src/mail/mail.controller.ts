@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import type { GaxiosResponse } from 'gaxios';
 import { gmail_v1 } from 'googleapis';
 import { SendMailDTO } from './dtos/send-mail.dto';
