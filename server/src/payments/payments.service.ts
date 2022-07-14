@@ -17,6 +17,13 @@ export class PaymentsService {
     return await this.invoiceModel.findOne(filter).exec();
   }
 
+  async findOneAndUpdate(
+    filter: FilterQuery<InvoiceDocument>,
+    params: UpdateQuery<InvoiceDocument>,
+  ): Promise<Invoice> {
+    return await this.invoiceModel.findOneAndUpdate(filter, params).exec();
+  }
+
   async create(doc: Invoice | InvoiceDocument): Promise<Record<string, any>> {
     return await (await this.invoiceModel.create(doc)).save();
   }
@@ -25,12 +32,5 @@ export class PaymentsService {
     docs: (Invoice | InvoiceDocument)[],
   ): Promise<Record<string, any>[]> {
     return await this.invoiceModel.insertMany(docs);
-  }
-
-  async findOneAndUpdate(
-    filter: FilterQuery<InvoiceDocument>,
-    params: UpdateQuery<InvoiceDocument>,
-  ): Promise<Invoice> {
-    return await this.invoiceModel.findOneAndUpdate(filter, params).exec();
   }
 }

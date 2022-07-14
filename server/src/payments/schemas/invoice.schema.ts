@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import * as mongoose from 'mongoose';
+import { Types } from 'mongoose';
 import { User } from 'src/users/schemas/user.schema';
 import { Chain } from './chain.schema';
 import { Execution } from './excution.schema';
@@ -21,13 +21,13 @@ export enum Frequency {
   collection: 'Invoice',
 })
 export class Invoice {
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Chain', required: true })
+  @Prop({ type: Types.ObjectId, ref: 'Chain', required: true })
   chainId: Chain;
 
   @Prop({ required: true })
   transactionHash: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
+  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   createdBy: User;
 
   @Prop({ required: true })
@@ -42,10 +42,10 @@ export class Invoice {
   @Prop({ required: true, unique: true })
   paymentNonce: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
+  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   payer: User | string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
+  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   payee: User | string;
 
   @Prop({ required: true })
@@ -61,7 +61,7 @@ export class Invoice {
   currency: string;
 
   @Prop({
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Execution' }],
+    type: [{ type: Types.ObjectId, ref: 'Execution' }],
     required: false,
     default: [],
   })
@@ -71,5 +71,5 @@ export class Invoice {
   numberOfRetries: number;
 }
 
-export type InvoiceDocument = Invoice & mongoose.Document;
+export type InvoiceDocument = Invoice & Document;
 export const InvoiceSchema = SchemaFactory.createForClass(Invoice);
