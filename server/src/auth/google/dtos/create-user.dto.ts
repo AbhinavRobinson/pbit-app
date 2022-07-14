@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Provider } from '../../../users/schemas/user.types';
+import { Provider } from '../../../users/schemas/user.schema';
 
 export class CreateGoogleUserDto {
   @ApiProperty({ description: 'Must be google' })

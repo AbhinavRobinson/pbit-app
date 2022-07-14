@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Provider } from 'src/users/schemas/user.types';
+import { Provider } from 'src/users/schemas/user.schema';
 
 export class CreateLocalUserDto {
   @ApiProperty({ description: 'Must be local' })

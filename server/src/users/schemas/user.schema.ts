@@ -2,10 +2,11 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Document } from 'mongoose';
 import { Role } from 'src/auth/roles/roles.enum';
-import { Provider } from './user.types';
 
 export type UserDocument = User & Document;
 export type UserWithoutPassword = Omit<User, 'password'>;
+
+export type Provider = 'google' | 'plaid';
 
 @Schema()
 export class User {
