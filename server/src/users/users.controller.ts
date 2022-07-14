@@ -8,6 +8,8 @@ import {
 } from '@nestjs/common';
 import { GetAuthId } from 'src/auth/jwt/jwt-auth.decorator';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
+import { Roles } from 'src/auth/roles/roles.decorator';
+import { Role } from 'src/auth/roles/roles.enum';
 import { RolesGuard } from 'src/auth/roles/roles.guard';
 import { RoleUpdateDTO } from './dtos/role-update.dto';
 import { UserWithoutPassword } from './schemas/user.schema';
@@ -24,7 +26,8 @@ export class UsersController {
   }
 
   @Post('access/update/:id')
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  @UseGuards(JwtAuthGuard)
   async updateRoles(
     @Param('id') id: string,
     @Body() roleUpdateDTO: RoleUpdateDTO,
