@@ -2,6 +2,7 @@ import { Prop, Schema } from '@nestjs/mongoose';
 
 @Schema({
   timestamps: true,
+  collection: 'Chain',
 })
 export class Chain {
   @Prop()

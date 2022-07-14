@@ -15,6 +15,7 @@ export enum Frequency {
 
 @Schema({
   timestamps: true,
+  collection: 'Invoice',
 })
 export class Invoice {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Chain', required: true })
