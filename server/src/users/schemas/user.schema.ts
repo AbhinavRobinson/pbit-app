@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Document } from 'mongoose';
+import { Role } from 'src/auth/roles/roles.enum';
 import { Provider } from './user.types';
 
 export type UserDocument = User & Document;
@@ -19,7 +20,7 @@ export class User {
   @Prop({ required: true })
   username: string;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({ required: false, default: null })
   @Prop()
   name: string;
 
@@ -27,6 +28,11 @@ export class User {
   @ApiProperty({ description: 'Required for local strategy' })
   @Prop()
   password: string;
+
+  // Authorization
+  @ApiProperty({ required: false, default: [Role.User] })
+  @Prop({ required: false, default: [Role.User] })
+  roles: Role[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
