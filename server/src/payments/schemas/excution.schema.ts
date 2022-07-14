@@ -6,4 +6,7 @@ import { Prop, Schema } from '@nestjs/mongoose';
 export class Execution {
   @Prop({ required: true })
   transaction: String;
+
+  @Prop({ required: true })
+  executionStatus: string;
 }
