@@ -57,8 +57,7 @@ export class Invoice {
   currency: string;
 
   @Prop({
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'Execution',
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Execution' }],
     required: false,
     default: [],
   })
