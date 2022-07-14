@@ -20,7 +20,7 @@ export class Invoice {
   chainId: Chain;
 
   @Prop({ required: true })
-  transaction: string;
+  transactionHash: string;
 
   @Prop({ required: true })
   createdBy: User;
@@ -57,4 +57,7 @@ export class Invoice {
 
   @Prop({ required: false, default: [] })
   executions: Execution[];
+
+  @Prop({ required: true, default: 1 })
+  numberOfRetries: number;
 }

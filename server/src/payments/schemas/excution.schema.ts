@@ -5,7 +5,7 @@ import { Prop, Schema } from '@nestjs/mongoose';
 })
 export class Execution {
   @Prop({ required: true })
-  transaction: String;
+  transactionHash: string;
 
   @Prop({ required: true })
   executionStatus: string;
