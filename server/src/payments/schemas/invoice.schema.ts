@@ -1,4 +1,4 @@
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { User } from 'src/users/schemas/user.schema';
 import { Chain } from './chain.schema';
@@ -72,3 +72,4 @@ export class Invoice {
 }
 
 export type InvoiceDocument = Invoice & mongoose.Document;
+export const InvoiceSchema = SchemaFactory.createForClass(Invoice);
