@@ -24,7 +24,11 @@ export class LocalAuthService {
     username: string,
     password: string,
   ): Promise<Omit<User, 'password'>> {
-    const user = await this.usersService.findOne({ username });
+    const user: User = await this.userModel
+      .findOne({
+        username,
+      })
+      .exec();
     if (user && bcrypt.compareSync(password, user.password)) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...result } = user;

@@ -10,6 +10,7 @@ export class UsersService {
   async findOne(
     params: FilterQuery<UserDocument>,
   ): Promise<UserWithoutPassword> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...rest } = await this.userModel.findOne(params).exec();
     return rest;
   }
@@ -18,6 +19,7 @@ export class UsersService {
     id: FilterQuery<UserDocument>,
     params: UpdateQuery<UserDocument>,
   ): Promise<UserWithoutPassword> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...rest } = await this.userModel
       .findOneAndUpdate(id, params)
       .exec();

@@ -27,7 +27,7 @@ export class UsersController {
 
   @Post('access/update/:id')
   @Roles(Role.Admin)
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   async updateRoles(
     @Param('id') id: string,
     @Body() roleUpdateDTO: RoleUpdateDTO,
