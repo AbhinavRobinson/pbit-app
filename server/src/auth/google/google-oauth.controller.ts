@@ -15,7 +15,10 @@ export class GoogleOauthController {
 
   @Get('redirect')
   @UseGuards(GoogleOauthGuard)
-  async googleAuthRedirect(@Req() req: Request, @Res() res: Response) {
+  async googleAuthRedirect(
+    @Req() req: Request,
+    @Res() res: Response,
+  ): Promise<Record<string, any>> {
     const { accessToken } = this.jwtAuthService.signedAccessToken(req.user);
     return res.cookie('jwt', accessToken).send(req.user);
   }
