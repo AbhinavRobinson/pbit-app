@@ -8,7 +8,7 @@ export type UserWithoutPassword = Omit<User, 'password'>;
 
 export type Provider = 'google' | 'plaid';
 
-@Schema()
+@Schema({ timestamps: true })
 export class User {
   @ApiProperty()
   @Prop({ required: true })
