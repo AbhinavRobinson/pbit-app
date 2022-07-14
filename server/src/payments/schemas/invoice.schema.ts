@@ -1,5 +1,7 @@
 import { Prop, Schema } from '@nestjs/mongoose';
 import { User } from 'src/users/schemas/user.schema';
+import { Chain } from './chain.schema';
+import { Execution } from './excution.schema';
 
 export enum Frequency {
   Single,
@@ -10,10 +12,15 @@ export enum Frequency {
   Yearly,
 }
 
-@Schema()
+@Schema({
+  timestamps: true,
+})
 export class Invoice {
   @Prop({ required: true })
-  createTransaction: String;
+  chainId: Chain;
+
+  @Prop({ required: true })
+  transaction: string;
 
   @Prop({ required: true })
   createdBy: User;
@@ -47,4 +54,7 @@ export class Invoice {
 
   @Prop({ required: true })
   currency: string;
+
+  @Prop({ required: false, default: [] })
+  executions: Execution[];
 }
