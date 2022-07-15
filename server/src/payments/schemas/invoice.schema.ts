@@ -39,7 +39,7 @@ export const FrequencyMap: { [Key in IFrequency]: number } = Object.fromEntries(
 ) as { [Key in keyof typeof Frequency]: number };
 
 class User extends IUser {
-  // ! extention with break schema.
+  // ! extention will break schema.
   // @ApiProperty()
   // @Prop()
   // address: string;
