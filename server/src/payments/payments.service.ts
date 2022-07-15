@@ -24,7 +24,7 @@ export class PaymentsService {
     return await this.invoiceModel.findOneAndUpdate(filter, params).exec();
   }
 
-  async create(doc: Invoice | InvoiceDocument): Promise<Record<string, any>> {
+  async create(doc: Invoice | InvoiceDocument): Promise<InvoiceDocument> {
     return await (await this.invoiceModel.create(doc)).save();
   }
 

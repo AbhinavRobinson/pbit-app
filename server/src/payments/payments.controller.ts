@@ -8,7 +8,7 @@ import { Role } from 'src/auth/roles/roles.enum';
 import { RolesGuard } from 'src/auth/roles/roles.guard';
 import { CreateInvoiceDTO } from './dtos/create-invoice.dto';
 import { PaymentsService } from './payments.service';
-import { Invoice } from './schemas/invoice.schema';
+import { Invoice, InvoiceDocument } from './schemas/invoice.schema';
 
 @Controller('invoice')
 export class PaymentsController {
@@ -17,9 +17,7 @@ export class PaymentsController {
   @Post()
   @Roles(Role.Creator)
   @UseGuards(RolesGuard)
-  async createInvoice(
-    @Body() dto: CreateInvoiceDTO,
-  ): Promise<Record<string, any>> {
+  async createInvoice(@Body() dto: CreateInvoiceDTO): Promise<InvoiceDocument> {
     return await this.paymentsService.create(dto);
   }
 
