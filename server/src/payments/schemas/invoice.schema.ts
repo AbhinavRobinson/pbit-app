@@ -17,23 +17,23 @@ export enum Frequency {
 type IFrequency = keyof typeof Frequency;
 
 export const FrequencyMap: { [Key in IFrequency]: number } = Object.fromEntries(
-  (Object.keys(Frequency) as Array<IFrequency>).map((key) => {
-    const DAY = 60 * 60 * 24;
-    switch (key) {
+  (Object.keys(Frequency) as Array<IFrequency>).map((k) => {
+    const _d = 60 * 60 * 24;
+    switch (k) {
       case 'Single':
-        return [key, 0];
+        return [k, 0];
       case 'Daily':
-        return [key, DAY * 1];
+        return [k, _d * 1];
       case 'Weekly':
-        return [key, DAY * 7];
+        return [k, _d * 7];
       case 'Monthly':
-        return [key, DAY * 30];
+        return [k, _d * 30];
       case 'Quarterly':
-        return [key, DAY * 90];
+        return [k, _d * 90];
       case 'Yearly':
-        return [key, DAY * 360];
+        return [k, _d * 360];
       default:
-        return [key, -1];
+        return [k, 0]; // default to single txn behaviour.
     }
   }),
 ) as { [Key in keyof typeof Frequency]: number };
