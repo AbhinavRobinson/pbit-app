@@ -5,8 +5,6 @@ import { User } from 'src/users/schemas/user.schema';
 import { Chain } from './chain.schema';
 import { Execution } from './excution.schema';
 
-const DAY = 60 * 60 * 24;
-
 export enum Frequency {
   Single,
   Daily,
