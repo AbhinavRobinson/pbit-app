@@ -30,7 +30,7 @@ export class PaymentsService {
 
   async createMany(
     docs: (Invoice | InvoiceDocument)[],
-  ): Promise<Record<string, any>[]> {
+  ): Promise<InvoiceDocument[]> {
     return await this.invoiceModel.insertMany(docs);
   }
 }
