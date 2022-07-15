@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Types } from 'mongoose';
-import { User } from 'src/users/schemas/user.schema';
+import { User as IUser } from 'src/users/schemas/user.schema';
 import { Chain } from './chain.schema';
 import { Execution } from './excution.schema';
 
@@ -38,10 +38,11 @@ export const FrequencyMap: { [Key in IFrequency]: number } = Object.fromEntries(
   }),
 ) as { [Key in keyof typeof Frequency]: number };
 
-class UserOrAddress extends User {
-  @ApiProperty()
-  @Prop()
-  address: string;
+class User extends IUser {
+  // ! extention with break schema.
+  // @ApiProperty()
+  // @Prop()
+  // address: string;
 }
 
 @Schema({
@@ -77,13 +78,13 @@ export class Invoice {
   @Prop({ required: true, unique: true })
   paymentNonce: string;
 
-  @ApiProperty({ type: UserOrAddress })
+  @ApiProperty({ type: User })
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-  payer: UserOrAddress;
+  payer: User;
 
-  @ApiProperty({ type: UserOrAddress })
+  @ApiProperty({ type: User })
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-  payee: UserOrAddress;
+  payee: User;
 
   @ApiProperty()
   @Prop({ required: true })
