@@ -38,6 +38,12 @@ export const FrequencyMap: { [Key in IFrequency]: number } = Object.fromEntries(
   }),
 ) as { [Key in keyof typeof Frequency]: number };
 
+class UserOrAddress extends User {
+  @ApiProperty()
+  @Prop()
+  address: string;
+}
+
 @Schema({
   timestamps: true,
   collection: 'Invoice',
@@ -71,13 +77,13 @@ export class Invoice {
   @Prop({ required: true, unique: true })
   paymentNonce: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: UserOrAddress })
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-  payer: User | string;
+  payer: UserOrAddress;
 
-  @ApiProperty()
+  @ApiProperty({ type: UserOrAddress })
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-  payee: User | string;
+  payee: UserOrAddress;
 
   @ApiProperty()
   @Prop({ required: true })
