@@ -16,27 +16,28 @@ export enum Frequency {
 
 type IFrequency = keyof typeof Frequency;
 
-export const FrequencyMap: { [Key in IFrequency]: number } = Object.fromEntries(
-  (Object.keys(Frequency) as Array<IFrequency>).map((k) => {
-    const _d = 60 * 60 * 24;
-    switch (k) {
-      case 'Single':
-        return [k, 0];
-      case 'Daily':
-        return [k, _d * 1];
-      case 'Weekly':
-        return [k, _d * 7];
-      case 'Monthly':
-        return [k, _d * 30];
-      case 'Quarterly':
-        return [k, _d * 90];
-      case 'Yearly':
-        return [k, _d * 360];
-      default:
-        return [k, 0]; // default to single txn behaviour.
-    }
-  }),
-) as { [Key in keyof typeof Frequency]: number };
+export const FrequencyTimeObject: { [Key in IFrequency]: number } =
+  Object.fromEntries(
+    (Object.keys(Frequency) as Array<IFrequency>).map((k) => {
+      const _d = 60 * 60 * 24;
+      switch (k) {
+        case 'Single':
+          return [k, 0];
+        case 'Daily':
+          return [k, _d * 1];
+        case 'Weekly':
+          return [k, _d * 7];
+        case 'Monthly':
+          return [k, _d * 30];
+        case 'Quarterly':
+          return [k, _d * 90];
+        case 'Yearly':
+          return [k, _d * 360];
+        default:
+          return [k, 0]; // default to single txn behaviour.
+      }
+    }),
+  ) as { [Key in IFrequency]: number };
 
 class User extends IUser {
   // ! extention will break schema.
