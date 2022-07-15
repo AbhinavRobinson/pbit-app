@@ -14,6 +14,30 @@ export enum Frequency {
   Yearly,
 }
 
+type IFrequency = keyof typeof Frequency;
+
+export const FrequencyMap: { [Key in IFrequency]: number } = Object.fromEntries(
+  (Object.keys(Frequency) as Array<IFrequency>).map((key) => {
+    const DAY = 60 * 60 * 24;
+    switch (key) {
+      case 'Single':
+        return [key, 0];
+      case 'Daily':
+        return [key, DAY * 1];
+      case 'Weekly':
+        return [key, DAY * 7];
+      case 'Monthly':
+        return [key, DAY * 30];
+      case 'Quarterly':
+        return [key, DAY * 90];
+      case 'Yearly':
+        return [key, DAY * 360];
+      default:
+        return [key, -1];
+    }
+  }),
+) as { [Key in keyof typeof Frequency]: number };
+
 @Schema({
   timestamps: true,
   collection: 'Invoice',
