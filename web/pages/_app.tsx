@@ -1,9 +1,11 @@
-import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { AppContext } from '../context/AppContext'
 import { useState } from 'react'
 import Head from 'next/head'
 import { Layout } from '../context/components/Layout'
+
+import "styles/tailwind.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const [connectedAddress, setConnectedAddress] = useState('')

@@ -7,7 +7,7 @@ import styles from '../styles/Home.module.css'
 import { ERC721 } from '../types'
 
 const Home: NextPage = () => {
-	const { connectedAddress, chainId, incorrectChainId } = useWeb3()
+	const { connect, connectedAddress, chainId, incorrectChainId } = useWeb3()
 
 	useEffect(() => {
 		if (connectedAddress && chainId && !incorrectChainId) {
@@ -30,7 +30,27 @@ const Home: NextPage = () => {
 				<meta name='description' content='' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<button>This is a button</button>
+
+			{!connectedAddress && (
+				<>
+					<button
+						onClick={async () => {
+							const provider = await connect()
+							;(window as any).provider = provider
+						}}
+					>
+						Connect
+					</button>
+				</>
+			)}
+			{connectedAddress && incorrectChainId && (
+				<>
+					<div className={styles.incorrectChain}>
+						Please switch to correct network
+					</div>
+				</>
+			)}
+			{connectedAddress && <>Connected to {connectedAddress}</>}
 		</div>
 	)
 }

@@ -31,27 +31,6 @@ export const Layout: React.FC = ({ children }) => {
 	}, [connectedAddress, connect])
 	return (
 		<>
-			{!connectedAddress && (
-				<>
-					<button
-						onClick={async () => {
-							const provider = await connect()
-							;(window as any).provider = provider
-						}}
-					>
-						Connect
-					</button>
-				</>
-			)}
-			{connectedAddress && incorrectChainId && (
-				<>
-					<div className={styles.incorrectChain}>
-						Please switch to correct network
-					</div>
-				</>
-			)}
-			{connectedAddress && <>Connected to {connectedAddress}</>}
-
 			<div className={styles.layout}>{children}</div>
 		</>
 	)
