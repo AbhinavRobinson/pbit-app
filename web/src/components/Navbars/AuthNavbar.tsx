@@ -5,7 +5,6 @@ import Link from "next/link";
 import PagesDropdown from "components/Dropdowns/PagesDropdown";
 
 export default function Navbar(props: any) {
-  console.log('Navbar')
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>
