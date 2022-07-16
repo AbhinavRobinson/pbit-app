@@ -1,3 +1,4 @@
+import { PaymentsModule } from './payments/payments.module';
 import { MailModule } from './mail/mail.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -13,6 +14,7 @@ import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
+    PaymentsModule,
     MailModule,
     ThrottlerModule.forRoot({
       ttl: 60,
