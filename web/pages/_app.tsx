@@ -1,37 +1,28 @@
 import type { AppProps } from 'next/app'
-import { AppContext } from '../context/AppContext'
-import { useState } from 'react'
 import Head from 'next/head'
-import { Layout } from '../context/components/Layout'
+import { ToastContainer } from 'react-toastify'
 
-import "styles/tailwind.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
+import { Layout } from '../context/components/Layout'
+import { MetamaskProvider } from 'context/AppContext'
+
+import 'styles/tailwind.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
+import 'react-toastify/dist/ReactToastify.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
-	const [connectedAddress, setConnectedAddress] = useState('')
-	const [loader, setLoader] = useState(false)
-	const [wallet, showWallet] = useState(false)
 	return (
 		<>
 			<Head>
-				<title>Ethers - NextJS</title>
+				<title>dIMS</title>
 				<meta name='description' content='' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<AppContext.Provider
-				value={{
-					connectedAddress,
-					setConnectedAddress,
-					loader,
-					setLoader,
-					wallet,
-					showWallet,
-				}}
-			>
+			<MetamaskProvider>
 				<Layout>
 					<Component {...pageProps} />
+					<ToastContainer />
 				</Layout>
-			</AppContext.Provider>
+			</MetamaskProvider>
 		</>
 	)
 }
