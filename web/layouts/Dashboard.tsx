@@ -8,10 +8,8 @@ import HeaderStats from 'components/Headers/HeaderStats'
 import FooterAdmin from 'components/Footers/FooterAdmin'
 
 export default function Dashboard({ children }: any) {
-
 	return (
 		<>
-
 			<Sidebar />
 			<div className='relative md:ml-64 bg-blueGray-100'>
 				<AdminNavbar />
