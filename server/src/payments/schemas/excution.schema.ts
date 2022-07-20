@@ -1,17 +1,21 @@
 import { Prop, Schema } from '@nestjs/mongoose';
-import * as mongoose from 'mongoose';
+import { ApiProperty } from '@nestjs/swagger';
+import { Types } from 'mongoose';
 
 @Schema({
   timestamps: true,
   collection: 'Execution',
 })
 export class Execution {
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Invoice' })
+  @ApiProperty()
+  @Prop({ type: Types.ObjectId, ref: 'Invoice' })
   invoiceId: string;
 
+  @ApiProperty()
   @Prop({ required: true })
   transactionHash: string;
 
+  @ApiProperty()
   @Prop({ required: true })
   executionStatus: string;
 }
