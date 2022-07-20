@@ -24,21 +24,20 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "./common";
 
 export declare namespace AbstractInvoice {
   export type InvoiceDataStruct = {
-    payee: PromiseOrValue<string>;
-    payer: PromiseOrValue<string>;
-    amount: PromiseOrValue<BigNumberish>;
-    currency: PromiseOrValue<string>;
-    frequency: PromiseOrValue<BigNumberish>;
-    startingTime: PromiseOrValue<BigNumberish>;
-    durationForRetiresBeforeFailure: PromiseOrValue<BigNumberish>;
-    expiry: PromiseOrValue<BigNumberish>;
-    paymentNonce: PromiseOrValue<BigNumberish>;
-    paymentParameter: PromiseOrValue<BytesLike>;
+    payee: string;
+    payer: string;
+    amount: BigNumberish;
+    currency: string;
+    frequency: BigNumberish;
+    startingTime: BigNumberish;
+    durationForRetiresBeforeFailure: BigNumberish;
+    expiry: BigNumberish;
+    paymentNonce: BigNumberish;
+    paymentParameter: BytesLike;
   };
 
   export type InvoiceDataStructOutput = [
@@ -122,65 +121,53 @@ export interface InvoiceInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "cancelledInvoices",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "createInvoice",
     values: [AbstractInvoice.InvoiceDataStruct]
   ): string;
-  encodeFunctionData(
-    functionFragment: "currencies",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "currencies", values: [string]): string;
   encodeFunctionData(
     functionFragment: "execute",
-    values: [AbstractInvoice.InvoiceDataStruct, PromiseOrValue<BytesLike>]
+    values: [AbstractInvoice.InvoiceDataStruct, BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "feePercent",
     values?: undefined
   ): string;
-  encodeFunctionData(
-    functionFragment: "initialize",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "isAdmin",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "initialize", values: [string]): string;
+  encodeFunctionData(functionFragment: "isAdmin", values: [string]): string;
   encodeFunctionData(functionFragment: "nonce", values?: undefined): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "payees",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "payees", values: [string]): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
     values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "setCurrency",
-    values: [PromiseOrValue<string>[], PromiseOrValue<boolean>]
+    values: [string[], boolean]
   ): string;
   encodeFunctionData(
     functionFragment: "setExecutorContract",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "setFeePercent",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "verifySignature",
-    values: [AbstractInvoice.InvoiceDataStruct, PromiseOrValue<BytesLike>]
+    values: [AbstractInvoice.InvoiceDataStruct, BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "whitelistPayee",
-    values: [PromiseOrValue<string>[], PromiseOrValue<boolean>]
+    values: [string[], boolean]
   ): string;
 
   decodeFunctionResult(
@@ -371,82 +358,73 @@ export interface Invoice extends BaseContract {
     UNIQUE_INDENTIFIER(overrides?: CallOverrides): Promise<[string]>;
 
     cancelledInvoices(
-      arg0: PromiseOrValue<BigNumberish>,
+      arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
     createInvoice(
       invoiceData: AbstractInvoice.InvoiceDataStruct,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    currencies(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
+    currencies(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
 
     execute(
       invoiceData: AbstractInvoice.InvoiceDataStruct,
-      signature: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      signature: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     feePercent(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     initialize(
-      _EXECUTOR_CONTRACT: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _EXECUTOR_CONTRACT: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    isAdmin(
-      user: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
+    isAdmin(user: string, overrides?: CallOverrides): Promise<[boolean]>;
 
     nonce(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
-    payees(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
+    payees(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setCurrency(
-      _currencies: PromiseOrValue<string>[],
-      enabled: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _currencies: string[],
+      enabled: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setExecutorContract(
-      _EXECUTOR_CONTRACT: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _EXECUTOR_CONTRACT: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setFeePercent(
-      _feePercent: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _feePercent: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     transferOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      newOwner: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     verifySignature(
       invoiceData: AbstractInvoice.InvoiceDataStruct,
-      signature: PromiseOrValue<BytesLike>,
+      signature: BytesLike,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
     whitelistPayee(
-      _payees: PromiseOrValue<string>[],
-      enabled: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _payees: string[],
+      enabled: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
@@ -455,82 +433,73 @@ export interface Invoice extends BaseContract {
   UNIQUE_INDENTIFIER(overrides?: CallOverrides): Promise<string>;
 
   cancelledInvoices(
-    arg0: PromiseOrValue<BigNumberish>,
+    arg0: BigNumberish,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
   createInvoice(
     invoiceData: AbstractInvoice.InvoiceDataStruct,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  currencies(
-    arg0: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
+  currencies(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
   execute(
     invoiceData: AbstractInvoice.InvoiceDataStruct,
-    signature: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    signature: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   feePercent(overrides?: CallOverrides): Promise<BigNumber>;
 
   initialize(
-    _EXECUTOR_CONTRACT: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _EXECUTOR_CONTRACT: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  isAdmin(
-    user: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
+  isAdmin(user: string, overrides?: CallOverrides): Promise<boolean>;
 
   nonce(overrides?: CallOverrides): Promise<BigNumber>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
-  payees(
-    arg0: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
+  payees(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
   renounceOwnership(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setCurrency(
-    _currencies: PromiseOrValue<string>[],
-    enabled: PromiseOrValue<boolean>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _currencies: string[],
+    enabled: boolean,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setExecutorContract(
-    _EXECUTOR_CONTRACT: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _EXECUTOR_CONTRACT: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setFeePercent(
-    _feePercent: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _feePercent: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   transferOwnership(
-    newOwner: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    newOwner: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   verifySignature(
     invoiceData: AbstractInvoice.InvoiceDataStruct,
-    signature: PromiseOrValue<BytesLike>,
+    signature: BytesLike,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
   whitelistPayee(
-    _payees: PromiseOrValue<string>[],
-    enabled: PromiseOrValue<boolean>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _payees: string[],
+    enabled: boolean,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -539,7 +508,7 @@ export interface Invoice extends BaseContract {
     UNIQUE_INDENTIFIER(overrides?: CallOverrides): Promise<string>;
 
     cancelledInvoices(
-      arg0: PromiseOrValue<BigNumberish>,
+      arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -554,70 +523,61 @@ export interface Invoice extends BaseContract {
       }
     >;
 
-    currencies(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
+    currencies(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
     execute(
       invoiceData: AbstractInvoice.InvoiceDataStruct,
-      signature: PromiseOrValue<BytesLike>,
+      signature: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
     feePercent(overrides?: CallOverrides): Promise<BigNumber>;
 
     initialize(
-      _EXECUTOR_CONTRACT: PromiseOrValue<string>,
+      _EXECUTOR_CONTRACT: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    isAdmin(
-      user: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
+    isAdmin(user: string, overrides?: CallOverrides): Promise<boolean>;
 
     nonce(overrides?: CallOverrides): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
-    payees(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
+    payees(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
     setCurrency(
-      _currencies: PromiseOrValue<string>[],
-      enabled: PromiseOrValue<boolean>,
+      _currencies: string[],
+      enabled: boolean,
       overrides?: CallOverrides
     ): Promise<void>;
 
     setExecutorContract(
-      _EXECUTOR_CONTRACT: PromiseOrValue<string>,
+      _EXECUTOR_CONTRACT: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
     setFeePercent(
-      _feePercent: PromiseOrValue<BigNumberish>,
+      _feePercent: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     transferOwnership(
-      newOwner: PromiseOrValue<string>,
+      newOwner: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
     verifySignature(
       invoiceData: AbstractInvoice.InvoiceDataStruct,
-      signature: PromiseOrValue<BytesLike>,
+      signature: BytesLike,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
     whitelistPayee(
-      _payees: PromiseOrValue<string>[],
-      enabled: PromiseOrValue<boolean>,
+      _payees: string[],
+      enabled: boolean,
       overrides?: CallOverrides
     ): Promise<void>;
   };
@@ -644,12 +604,12 @@ export interface Invoice extends BaseContract {
     ): InvoiceCreatedEventFilter;
 
     "OwnershipTransferred(address,address)"(
-      previousOwner?: PromiseOrValue<string> | null,
-      newOwner?: PromiseOrValue<string> | null
+      previousOwner?: string | null,
+      newOwner?: string | null
     ): OwnershipTransferredEventFilter;
     OwnershipTransferred(
-      previousOwner?: PromiseOrValue<string> | null,
-      newOwner?: PromiseOrValue<string> | null
+      previousOwner?: string | null,
+      newOwner?: string | null
     ): OwnershipTransferredEventFilter;
 
     "SetCurrency(address,bool)"(
@@ -678,82 +638,73 @@ export interface Invoice extends BaseContract {
     UNIQUE_INDENTIFIER(overrides?: CallOverrides): Promise<BigNumber>;
 
     cancelledInvoices(
-      arg0: PromiseOrValue<BigNumberish>,
+      arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     createInvoice(
       invoiceData: AbstractInvoice.InvoiceDataStruct,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    currencies(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    currencies(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     execute(
       invoiceData: AbstractInvoice.InvoiceDataStruct,
-      signature: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      signature: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     feePercent(overrides?: CallOverrides): Promise<BigNumber>;
 
     initialize(
-      _EXECUTOR_CONTRACT: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _EXECUTOR_CONTRACT: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    isAdmin(
-      user: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    isAdmin(user: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     nonce(overrides?: CallOverrides): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
-    payees(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    payees(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setCurrency(
-      _currencies: PromiseOrValue<string>[],
-      enabled: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _currencies: string[],
+      enabled: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setExecutorContract(
-      _EXECUTOR_CONTRACT: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _EXECUTOR_CONTRACT: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setFeePercent(
-      _feePercent: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _feePercent: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     transferOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      newOwner: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     verifySignature(
       invoiceData: AbstractInvoice.InvoiceDataStruct,
-      signature: PromiseOrValue<BytesLike>,
+      signature: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     whitelistPayee(
-      _payees: PromiseOrValue<string>[],
-      enabled: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _payees: string[],
+      enabled: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
@@ -765,35 +716,35 @@ export interface Invoice extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     cancelledInvoices(
-      arg0: PromiseOrValue<BigNumberish>,
+      arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     createInvoice(
       invoiceData: AbstractInvoice.InvoiceDataStruct,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     currencies(
-      arg0: PromiseOrValue<string>,
+      arg0: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     execute(
       invoiceData: AbstractInvoice.InvoiceDataStruct,
-      signature: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      signature: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     feePercent(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     initialize(
-      _EXECUTOR_CONTRACT: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _EXECUTOR_CONTRACT: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     isAdmin(
-      user: PromiseOrValue<string>,
+      user: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -802,45 +753,45 @@ export interface Invoice extends BaseContract {
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     payees(
-      arg0: PromiseOrValue<string>,
+      arg0: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setCurrency(
-      _currencies: PromiseOrValue<string>[],
-      enabled: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _currencies: string[],
+      enabled: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setExecutorContract(
-      _EXECUTOR_CONTRACT: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _EXECUTOR_CONTRACT: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setFeePercent(
-      _feePercent: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _feePercent: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     transferOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      newOwner: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     verifySignature(
       invoiceData: AbstractInvoice.InvoiceDataStruct,
-      signature: PromiseOrValue<BytesLike>,
+      signature: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     whitelistPayee(
-      _payees: PromiseOrValue<string>[],
-      enabled: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _payees: string[],
+      enabled: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

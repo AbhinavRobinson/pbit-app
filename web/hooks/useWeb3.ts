@@ -14,7 +14,7 @@ export const useWeb3 = () => {
 	} = useContext(AppContext)
 
 	const [incorrectChainId, setIncorrectChainId] = useState(false)
-	const [chainId, setChainId] = useState<typeof ContractInstance.chainId>(4)
+	const [chainId, setChainId] = useState<typeof ContractInstance.chainId>(80001)
 
 	const getProvider = async (
 		_throwErr: boolean = false

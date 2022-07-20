@@ -24,21 +24,20 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "./common";
 
 export declare namespace AbstractInvoice {
   export type InvoiceDataStruct = {
-    payee: PromiseOrValue<string>;
-    payer: PromiseOrValue<string>;
-    amount: PromiseOrValue<BigNumberish>;
-    currency: PromiseOrValue<string>;
-    frequency: PromiseOrValue<BigNumberish>;
-    startingTime: PromiseOrValue<BigNumberish>;
-    durationForRetiresBeforeFailure: PromiseOrValue<BigNumberish>;
-    expiry: PromiseOrValue<BigNumberish>;
-    paymentNonce: PromiseOrValue<BigNumberish>;
-    paymentParameter: PromiseOrValue<BytesLike>;
+    payee: string;
+    payer: string;
+    amount: BigNumberish;
+    currency: string;
+    frequency: BigNumberish;
+    startingTime: BigNumberish;
+    durationForRetiresBeforeFailure: BigNumberish;
+    expiry: BigNumberish;
+    paymentNonce: BigNumberish;
+    paymentParameter: BytesLike;
   };
 
   export type InvoiceDataStructOutput = [
@@ -96,16 +95,10 @@ export interface ExecutorInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "callExecute",
-    values: [AbstractInvoice.InvoiceDataStruct[], PromiseOrValue<BytesLike>[]]
+    values: [AbstractInvoice.InvoiceDataStruct[], BytesLike[]]
   ): string;
-  encodeFunctionData(
-    functionFragment: "initialize",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "isAdmin",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "initialize", values: [string]): string;
+  encodeFunctionData(functionFragment: "isAdmin", values: [string]): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
@@ -113,11 +106,11 @@ export interface ExecutorInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "setInvoiceContract",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
 
   decodeFunctionResult(
@@ -203,34 +196,31 @@ export interface Executor extends BaseContract {
 
     callExecute(
       invoiceData: AbstractInvoice.InvoiceDataStruct[],
-      signatures: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      signatures: BytesLike[],
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     initialize(
-      _INVOICE_CONTRACT: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _INVOICE_CONTRACT: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    isAdmin(
-      user: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
+    isAdmin(user: string, overrides?: CallOverrides): Promise<[boolean]>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setInvoiceContract(
-      _INVOICE_CONTRACT: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _INVOICE_CONTRACT: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     transferOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      newOwner: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
@@ -238,34 +228,31 @@ export interface Executor extends BaseContract {
 
   callExecute(
     invoiceData: AbstractInvoice.InvoiceDataStruct[],
-    signatures: PromiseOrValue<BytesLike>[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    signatures: BytesLike[],
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   initialize(
-    _INVOICE_CONTRACT: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _INVOICE_CONTRACT: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  isAdmin(
-    user: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
+  isAdmin(user: string, overrides?: CallOverrides): Promise<boolean>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
   renounceOwnership(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setInvoiceContract(
-    _INVOICE_CONTRACT: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _INVOICE_CONTRACT: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   transferOwnership(
-    newOwner: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    newOwner: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -273,31 +260,28 @@ export interface Executor extends BaseContract {
 
     callExecute(
       invoiceData: AbstractInvoice.InvoiceDataStruct[],
-      signatures: PromiseOrValue<BytesLike>[],
+      signatures: BytesLike[],
       overrides?: CallOverrides
     ): Promise<boolean[]>;
 
     initialize(
-      _INVOICE_CONTRACT: PromiseOrValue<string>,
+      _INVOICE_CONTRACT: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    isAdmin(
-      user: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
+    isAdmin(user: string, overrides?: CallOverrides): Promise<boolean>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
     setInvoiceContract(
-      _INVOICE_CONTRACT: PromiseOrValue<string>,
+      _INVOICE_CONTRACT: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
     transferOwnership(
-      newOwner: PromiseOrValue<string>,
+      newOwner: string,
       overrides?: CallOverrides
     ): Promise<void>;
   };
@@ -307,12 +291,12 @@ export interface Executor extends BaseContract {
     Initialized(version?: null): InitializedEventFilter;
 
     "OwnershipTransferred(address,address)"(
-      previousOwner?: PromiseOrValue<string> | null,
-      newOwner?: PromiseOrValue<string> | null
+      previousOwner?: string | null,
+      newOwner?: string | null
     ): OwnershipTransferredEventFilter;
     OwnershipTransferred(
-      previousOwner?: PromiseOrValue<string> | null,
-      newOwner?: PromiseOrValue<string> | null
+      previousOwner?: string | null,
+      newOwner?: string | null
     ): OwnershipTransferredEventFilter;
   };
 
@@ -321,34 +305,31 @@ export interface Executor extends BaseContract {
 
     callExecute(
       invoiceData: AbstractInvoice.InvoiceDataStruct[],
-      signatures: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      signatures: BytesLike[],
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     initialize(
-      _INVOICE_CONTRACT: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _INVOICE_CONTRACT: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    isAdmin(
-      user: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    isAdmin(user: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setInvoiceContract(
-      _INVOICE_CONTRACT: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _INVOICE_CONTRACT: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     transferOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      newOwner: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
@@ -357,34 +338,34 @@ export interface Executor extends BaseContract {
 
     callExecute(
       invoiceData: AbstractInvoice.InvoiceDataStruct[],
-      signatures: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      signatures: BytesLike[],
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     initialize(
-      _INVOICE_CONTRACT: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _INVOICE_CONTRACT: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     isAdmin(
-      user: PromiseOrValue<string>,
+      user: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setInvoiceContract(
-      _INVOICE_CONTRACT: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _INVOICE_CONTRACT: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     transferOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      newOwner: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
 }
