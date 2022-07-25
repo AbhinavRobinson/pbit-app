@@ -1,37 +1,47 @@
 import type { AppProps } from 'next/app'
-import { AppContext } from '../context/AppContext'
-import { useState } from 'react'
 import Head from 'next/head'
-import { Layout } from '../context/components/Layout'
+import { useRouter } from 'next/router'
+import PageChange from 'components/PageChange/PageChange'
+import { useEffect, useState } from 'react'
 
-import "styles/tailwind.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
+import { Layout } from 'context/components/Layout'
+import { MetamaskProvider } from 'context/AppContext'
+import { ToastContainer } from 'react-toastify'
+
+import 'styles/tailwind.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
+import 'react-toastify/dist/ReactToastify.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
-	const [connectedAddress, setConnectedAddress] = useState('')
-	const [loader, setLoader] = useState(false)
-	const [wallet, showWallet] = useState(false)
-	return (
+	const [pageLoading, setPageLoading] = useState<boolean>(false)
+	const Router = useRouter()
+
+	useEffect(() => {
+		if (typeof window !== undefined) {
+			Router.events.on('routeChangeStart', () => setPageLoading(true))
+			Router.events.on('routeChangeComplete', () => setPageLoading(false))
+			Router.events.on('routeChangeError', () => setPageLoading(false))
+		}
+		return () => {
+			setPageLoading(false)
+		}
+	}, [typeof window])
+
+	return pageLoading ? (
+		<PageChange path={Router.pathname} />
+	) : (
 		<>
 			<Head>
-				<title>Ethers - NextJS</title>
+				<title>dIMS</title>
 				<meta name='description' content='' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<AppContext.Provider
-				value={{
-					connectedAddress,
-					setConnectedAddress,
-					loader,
-					setLoader,
-					wallet,
-					showWallet,
-				}}
-			>
+			<MetamaskProvider>
 				<Layout>
 					<Component {...pageProps} />
+					<ToastContainer />
 				</Layout>
-			</AppContext.Provider>
+			</MetamaskProvider>
 		</>
 	)
 }

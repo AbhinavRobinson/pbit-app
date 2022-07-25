@@ -26,7 +26,7 @@ export default function CardTable({ color }: ICardTableProps) {
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                Card Tables
+                List of Invoices
               </h3>
             </div>
           </div>
@@ -44,7 +44,7 @@ export default function CardTable({ color }: ICardTableProps) {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Project
+                  Title
                 </th>
                 <th
                   className={
@@ -54,7 +54,7 @@ export default function CardTable({ color }: ICardTableProps) {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Budget
+                  Amount
                 </th>
                 <th
                   className={
