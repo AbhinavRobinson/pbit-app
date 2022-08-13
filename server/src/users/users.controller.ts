@@ -4,6 +4,7 @@ import {
   Inject,
   Param,
   Post,
+  Get,
   UseGuards,
 } from '@nestjs/common';
 import { GetAuthId } from 'src/auth/jwt/jwt-auth.decorator';
@@ -19,10 +20,13 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(@Inject(UsersService) private usersService: UsersService) {}
 
-  @Post('whoami')
+  @Get('whoami')
   @UseGuards(JwtAuthGuard)
   async whoAmI(@GetAuthId() id: string): Promise<UserWithoutPassword> {
-    return await this.usersService.findOne({ id: id.toString() });
+    if (!id) {
+      return null;
+    }
+    return await this.usersService.findOne({ id });
   }
 
   @Post('access/update/:id')

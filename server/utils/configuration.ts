@@ -4,6 +4,9 @@ export default () => ({
   database: {
     host: process.env.MONGO_URL,
   },
+  frontend: {
+    url: process.env.FRONTEND_URL,
+  },
   google: {
     oauth: {
       id: process.env.OAUTH_ID || '1',
