@@ -9,7 +9,7 @@ const queryClient = new QueryClient()
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<ThemeProvider attribute="class" defaultTheme="system" enableSystem={true}>
+			<ThemeProvider attribute='class' defaultTheme='system' enableSystem={true}>
 				<Component {...pageProps} />
 			</ThemeProvider>
 			<ReactQueryDevtools initialIsOpen={false} />
